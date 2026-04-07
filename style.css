@@ -252,7 +252,7 @@ em { font-style: italic; }
 .nav__link {
   font-size: 28px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: rgba(255,255,255,0.8);
   letter-spacing: 0.02em;
   position: relative;
   transition: color var(--ease-fast);
@@ -264,11 +264,11 @@ em { font-style: italic; }
   left: 0;
   right: 100%;
   height: 1.5px;
-  background: var(--teal);
+  background: #ffffff;
   transition: right var(--ease-base);
 }
 .nav__link:hover,
-.nav__link--active { color: var(--text-primary); }
+.nav__link--active { color: #ffffff; }
 .nav__link:hover::after,
 .nav__link--active::after { right: 0; }
 
@@ -276,7 +276,7 @@ em { font-style: italic; }
   display: inline-flex;
   width: 40px;
   height: 40px;
-  color: var(--text-secondary);
+  color: #ffffff;
   transition: color var(--ease-fast), transform var(--ease-fast);
 }
 .nav__social-link svg {
@@ -289,12 +289,21 @@ em { font-style: italic; }
   stroke: none;
 }
 .nav__social-link path {
-  fill: var(--bg);
+  fill: var(--text-primary);
 }
 .nav__social-link:hover {
-  color: var(--text-primary);
+  color: rgba(255,255,255,0.7);
   transform: translateY(-1px);
 }
+
+/* Restore dark colors once background fades in */
+.nav--scrolled .nav__link { color: var(--text-secondary); }
+.nav--scrolled .nav__link::after { background: var(--teal); }
+.nav--scrolled .nav__link:hover,
+.nav--scrolled .nav__link--active { color: var(--text-primary); }
+.nav--scrolled .nav__social-link { color: var(--text-secondary); }
+.nav--scrolled .nav__social-link path { fill: var(--bg); }
+.nav--scrolled .nav__social-link:hover { color: var(--text-primary); }
 
 /* Hamburger */
 .nav__toggle {
