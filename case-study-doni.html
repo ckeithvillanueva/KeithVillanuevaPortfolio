@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gen Z FinTech App — Keith Villanueva</title>
+  <meta name="description" content="UX research and iterative design for Doni, a Gen Z fintech app. Three rounds of usability testing validated new features to increase engagement and return rate.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Keith Villanueva</a>
+      <div class="nav__links" id="navLinks">
+        <a href="index.html#work" class="nav__link">Work</a>
+        <a href="index.html#about" class="nav__link">About</a>
+        <a href="index.html#experience" class="nav__link">Experience</a>
+        <a href="index.html#contact" class="nav__link">Contact</a>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO IMAGE ===================== -->
+  <img src="images/doni/hero.png" alt="Doni app on iPhone" class="cs-hero-image" style="margin-top: 64px;">
+
+  <!-- ===================== CASE STUDY HERO ===================== -->
+  <header class="cs-hero">
+    <div class="container">
+      <a href="index.html#work" class="cs-hero__back">← Back to Work</a>
+      <div class="cs-hero__tags">
+        <span class="tag">User Research</span>
+        <span class="tag">Usability Testing</span>
+        <span class="tag">Prototyping</span>
+      </div>
+      <h1 class="cs-hero__title">Gen Z<br>FinTech App</h1>
+      <p class="cs-hero__org">Doni Inc. · 2017</p>
+      <div class="cs-meta">
+        <div class="cs-meta__item">
+          <span class="cs-meta__label">Client</span>
+          <span class="cs-meta__value">Doni Inc.</span>
+        </div>
+        <div class="cs-meta__item">
+          <span class="cs-meta__label">Role</span>
+          <span class="cs-meta__value">Project Lead</span>
+        </div>
+        <div class="cs-meta__item">
+          <span class="cs-meta__label">Year</span>
+          <span class="cs-meta__value">2017</span>
+        </div>
+        <div class="cs-meta__item">
+          <span class="cs-meta__label">Skills</span>
+          <span class="cs-meta__value">User Research · Usability Testing<br>Research Synthesis · Prototyping</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== CASE STUDY BODY ===================== -->
+  <main class="cs-body">
+    <div class="container">
+      <div class="cs-layout">
+
+        <!-- Table of Contents -->
+        <aside class="cs-toc">
+          <span class="cs-toc__label">Contents</span>
+          <nav class="cs-toc__list">
+            <a href="#context" class="cs-toc__link">Context</a>
+            <a href="#objective" class="cs-toc__link">Objective &amp; Goal</a>
+            <a href="#heuristic" class="cs-toc__link">Heuristic Evaluation</a>
+            <a href="#research" class="cs-toc__link">User Research</a>
+            <a href="#synthesis" class="cs-toc__link">Research Synthesis</a>
+            <a href="#ideation" class="cs-toc__link">Sketching &amp; Ideation</a>
+            <a href="#iteration-1" class="cs-toc__link">Testing — Round 1</a>
+            <a href="#iteration-2" class="cs-toc__link">Testing — Round 2</a>
+            <a href="#features" class="cs-toc__link">Feature Evolution</a>
+            <a href="#conclusions" class="cs-toc__link">Conclusions</a>
+          </nav>
+        </aside>
+
+        <!-- Content -->
+        <div class="cs-content">
+
+          <section class="cs-section" id="context">
+            <span class="cs-section__label">Overview</span>
+            <h2 class="cs-section__title">Context</h2>
+            <p>Doni is an application designed to help people — particularly Generation Z — source and gather contributions from their networks to achieve financial goals more quickly. The product also aims to teach Gen Z best financial practices by offering features to advertise goals, events, and wishlists to a user's personal network.</p>
+            <p>The product was fully functional. Doni wanted input from UX designers to ensure it would resonate with and retain its target audience.</p>
+          </section>
+
+          <section class="cs-section" id="objective">
+            <span class="cs-section__label">Framing the Work</span>
+            <h2 class="cs-section__title">Objective &amp; Goal</h2>
+            <p><strong>Objective:</strong> Doni wanted to optimize their existing app and adopt new design features to ensure success with Generation Z — defined in terms of user engagement, satisfaction, return rate, and likelihood to recommend.</p>
+            <p><strong>Goal:</strong> Conduct user research and usability testing to identify pain points in the existing app. Use those insights to make design changes, then prototype and validate with users.</p>
+          </section>
+
+          <section class="cs-section" id="heuristic">
+            <span class="cs-section__label">Discovery</span>
+            <h2 class="cs-section__title">Heuristic Evaluation</h2>
+
+            <img src="images/doni/jakob-nielsen.jpg" alt="Jakob Nielsen" class="cs-inline-img">
+
+            <p>We began with a heuristic evaluation to acquaint ourselves with the Doni app — keeping our biases clear by using Jakob Nielsen's 10 usability heuristics as a framework. We committed to only designing on observations that were later validated by users in testing; the evaluation was a lens, not a verdict.</p>
+            <p>A selection of issues identified:</p>
+
+            <table class="cs-table">
+              <thead>
+                <tr>
+                  <th>Issue</th>
+                  <th>Heuristic Violated</th>
+                  <th>Severity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Unclear meaning of heart icon on My Goals</td>
+                  <td>#1 — Visibility of System Status</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>"Hey" pop-up when creating a custom occasion — clumsy and misplaced for the task context</td>
+                  <td>#8 — Aesthetic &amp; Minimalist Design</td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="cs-img-group">
+              <figure>
+                <img src="images/doni/phone-screen-1.png" alt="Doni Goals screen">
+                <figcaption>Goals screen — unclear heart icon</figcaption>
+              </figure>
+              <figure>
+                <img src="images/doni/phone-screen-2.png" alt="Doni 'Hey' occasion screen">
+                <figcaption>"Hey" pop-up — heuristic violation #8</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section class="cs-section" id="research">
+            <span class="cs-section__label">Research</span>
+            <h2 class="cs-section__title">User Research</h2>
+
+            <h3 class="cs-subsection-title">Survey</h3>
+            <p>To understand how Generation Z functions as a whole, we created a survey using Google Forms and distributed it to personal networks, targeting age-appropriate respondents.</p>
+
+            <div class="cs-stats-row">
+              <div class="cs-stat">
+                <span class="cs-stat__number">23</span>
+                <span class="cs-stat__label">Survey respondents</span>
+              </div>
+              <div class="cs-stat">
+                <span class="cs-stat__number">14–23</span>
+                <span class="cs-stat__label">Age range</span>
+              </div>
+            </div>
+
+            <div class="cs-img-group">
+              <figure>
+                <img src="images/doni/survey-gift-control.png" alt="Chart: How much control do you want over your gifts?">
+                <figcaption>Most respondents want significant control over their gifts (scale 1–5)</figcaption>
+              </figure>
+              <figure>
+                <img src="images/doni/survey-event-planning.png" alt="Chart: Do you plan special occasions for one another?">
+                <figcaption>65% plan special occasions for friends &amp; family</figcaption>
+              </figure>
+            </div>
+
+            <p>Key findings from the survey:</p>
+            <ul class="cs-list">
+              <li>87% would ask family for contributions toward a goal</li>
+              <li>65% would ask friends for contributions</li>
+              <li>Most respondents want control over the gifts they receive</li>
+              <li>Among those who plan events for others, many use text or online platforms to coordinate — directly analogous to Doni's use case</li>
+            </ul>
+            <p>Overall, the survey validated Doni's strategy. Gen Z has clear interest in controlling their gifts, will source their close networks for contributions, and already uses similar platforms to coordinate events. The opportunity is real — as long as the product keeps users engaged.</p>
+
+            <h3 class="cs-subsection-title">Usability Testing</h3>
+            <p>We tested the existing app with four participants, starting with background questions to contextualize each person and ease them into the session. Participants were then asked to complete four core tasks: Sign Up, Create an Event, Create a Goal, and Create a Wishlist.</p>
+
+            <div class="cs-participants">
+              <div class="cs-participant">
+                <img src="images/doni/participant-1.png" alt="Fernanda">
+                <span class="cs-participant__name">Fernanda</span>
+              </div>
+              <div class="cs-participant">
+                <img src="images/doni/participant-2.png" alt="InHang">
+                <span class="cs-participant__name">InHang</span>
+              </div>
+              <div class="cs-participant">
+                <img src="images/doni/participant-3.png" alt="Luckas">
+                <span class="cs-participant__name">Luckas</span>
+              </div>
+              <div class="cs-participant">
+                <img src="images/doni/participant-4.png" alt="Reyner">
+                <span class="cs-participant__name">Reyner</span>
+              </div>
+            </div>
+
+            <p>Post-task, we collected both qualitative observations and 1–7 Likert scale ratings across relevance, ease of use, and satisfaction. Overall, participants liked the app and found it potentially useful. While most encountered friction on first use, familiarity came quickly.</p>
+
+            <div class="cs-quote">
+              <p class="cs-quote__text">"Hard the first time, easy the second time."</p>
+              <p class="cs-quote__attr">— Reyner, Usability Testing Participant</p>
+            </div>
+
+            <div class="cs-findings">
+              <div class="cs-findings__group cs-findings__group--good">
+                <p class="cs-findings__title">What Worked</p>
+                <ul class="cs-list">
+                  <li>Signing in with Facebook</li>
+                  <li>Color scheme</li>
+                  <li>Idea of fundraising within their network</li>
+                  <li>Visibility of who donated</li>
+                </ul>
+              </div>
+              <div class="cs-findings__group cs-findings__group--bad">
+                <p class="cs-findings__title">Pain Points</p>
+                <ul class="cs-list">
+                  <li>Unclear wording — e.g., "Recipient"</li>
+                  <li>No home screen to orient the user</li>
+                  <li>Savings slider was confusing</li>
+                  <li>Goal duration capped at 3 months</li>
+                  <li>No photo feature</li>
+                </ul>
+              </div>
+            </div>
+
+            <img src="images/doni/hifi-mockup.jpg" alt="Usability testing session — researcher and participant" class="cs-img">
+            <p class="cs-img-caption">Usability testing session — moderator running the session while participant interacts with the app on their phone.</p>
+          </section>
+
+          <section class="cs-section" id="synthesis">
+            <span class="cs-section__label">Making Sense of the Data</span>
+            <h2 class="cs-section__title">Research Synthesis</h2>
+
+            <h3 class="cs-subsection-title">Affinity Mapping</h3>
+            <p>We extracted meaning from the survey and testing data through an affinity map, surfacing the features users were most interested in:</p>
+            <ul class="cs-list">
+              <li>Home Screen</li>
+              <li>Tutorial / onboarding</li>
+              <li>In-app notifications</li>
+              <li>Video recording and sharing</li>
+              <li>Direct messaging</li>
+              <li>Sharing contributions to social media</li>
+              <li>Clear language throughout</li>
+              <li>Goal planning beyond 3 months</li>
+              <li>Automatic / recurring contributions</li>
+              <li>A friends/social layer within the app</li>
+            </ul>
+
+            <h3 class="cs-subsection-title">Problem &amp; Solution Statements</h3>
+            <p>Using a Gen Z persona provided by Doni, we articulated the design target:</p>
+
+            <div class="cs-quote">
+              <p class="cs-quote__text">As a young adult who wants to save for expensive products instead of making many inexpensive purchases, I need a way to combine my network's resources so that their generosity is put to the best use.</p>
+              <p class="cs-quote__attr">— Problem Statement</p>
+            </div>
+
+            <div class="cs-quote">
+              <p class="cs-quote__text">Restructure the existing app to allow Gen Z users to clearly express and brand themselves as they raise funds to achieve their goals, all the while developing their existing networking skills.</p>
+              <p class="cs-quote__attr">— Solution Statement</p>
+            </div>
+          </section>
+
+          <section class="cs-section" id="ideation">
+            <span class="cs-section__label">Design Direction</span>
+            <h2 class="cs-section__title">Sketching &amp; Ideation</h2>
+
+            <h3 class="cs-subsection-title">Design Principles</h3>
+            <p>Before picking up a pencil, we aligned on principles to keep the design process on course:</p>
+            <ul class="cs-list">
+              <li>Keep the user connected with friends</li>
+              <li>Engage users with multiple functions</li>
+              <li>Allow users to express identity through the app</li>
+              <li>Keep it clear and simple</li>
+              <li>Help users reach their goals faster</li>
+            </ul>
+
+            <h3 class="cs-subsection-title">Design Studio</h3>
+            <p>With those principles as guardrails, we ran a structured design studio — alternating between individual sketching and group critique in timed rounds. The format gave each team member space to generate independently before benefiting from others' perspectives. We arrived at solutions that were stronger for having gone through both solo thinking and collaborative pressure-testing.</p>
+          </section>
+
+          <section class="cs-section" id="iteration-1">
+            <span class="cs-section__label">Testing — Round 1</span>
+            <h2 class="cs-section__title">Paper Prototype</h2>
+            <p>Combining our wireframes into a paper prototype, we tested with three new participants using the same moderated methodology as the first round. A key finding emerged around transparency: users weren't deterred by Doni's 3.5% transfer fee — but they felt they should have been told about it earlier.</p>
+
+            <div class="cs-quote">
+              <p class="cs-quote__text">"Woah, I thought you were trying to help me out — now I see what you're doing."</p>
+              <p class="cs-quote__attr">— Liz, Usability Testing Participant</p>
+            </div>
+
+            <p>Additional key findings from this round:</p>
+            <ul class="cs-list">
+              <li>Users wanted a personalized message option when sharing events or goals</li>
+              <li>"Title" tested better than "Recipient" — confirmed language change</li>
+              <li>Confusion around what an event is <em>for</em> — who the event belongs to</li>
+              <li>Desire for a calendar view on recurring contributions</li>
+              <li>Price slider was consistently unused and unclear, even when understood</li>
+            </ul>
+          </section>
+
+          <section class="cs-section" id="iteration-2">
+            <span class="cs-section__label">Testing — Round 2</span>
+            <h2 class="cs-section__title">Digital Prototype</h2>
+            <p>Taking the paper prototype feedback, we shifted to grayscale digital wireframes configured into flows in InVision, then tested on an actual iPhone with two participants.</p>
+            <p>We had introduced a tutorial pop-up for onboarding — designed to be present for those who needed it and easily skipped for those who didn't.</p>
+
+            <div class="cs-quote">
+              <p class="cs-quote__text">"I'm the kind of person who would go around and see how things work to figure it out — I'm not the person who would read the instructions."</p>
+              <p class="cs-quote__attr">— Luckas, Usability Testing Participant</p>
+            </div>
+
+            <p>Key findings from this round:</p>
+            <ul class="cs-list">
+              <li>Remove "Past" from Friend's project page — not relevant information</li>
+              <li>In Wishlist function, change "Add Goal" to "Add to List" to differentiate from "Create Goal"</li>
+              <li>Add a (?) icon next to "recurring" to define the term</li>
+            </ul>
+          </section>
+
+          <section class="cs-section" id="features">
+            <span class="cs-section__label">What We Built</span>
+            <h2 class="cs-section__title">Feature Evolution</h2>
+            <p>The following features were designed, tested, and iteratively refined across our three prototype rounds. Each was user-validated before being included in the final high-fidelity prototype.</p>
+
+            <h3 class="cs-subsection-title">Price &amp; Savings Screen</h3>
+            <p>All users preferred entering monetary values manually over using the savings slider — so we removed it. We also surfaced Doni's 3.5% transfer fee earlier in the flow and added a calculator to give users control over the math.</p>
+
+            <h3 class="cs-subsection-title">Home Screen</h3>
+            <p>Users consistently expressed a need for a landing point within the app to help orient them. The home screen we designed let users: make a quick contribution to a friend's goal, see a summary of friends in the app, view how much they had raised vs. others (introducing a light gamification element), and scan a summary of their own goals.</p>
+
+            <h3 class="cs-subsection-title">Pop-Up Coaching Screens</h3>
+            <p>The learning curve to understand the app was one of the most cited frustrations — but every participant understood the app's functions by the end of testing. Since the curve wasn't steep, we opted for an easily escapable tutorial pop-up. Those who needed it found it clarifying; those who didn't simply exited and learned by doing.</p>
+
+            <h3 class="cs-subsection-title">Friends &amp; Profile Feature</h3>
+            <p>To keep users connected within Doni and as a natural extension of the self-branding profile, we designed a Friends feature. Per user request, we removed visibility of past events and goals from friends' profiles — users didn't find it relevant.</p>
+
+            <h3 class="cs-subsection-title">Video &amp; Photo Capture ("My Story")</h3>
+            <p>To keep users engaged and allow genuine self-expression around goals and events, we designed a video/photo feature — named "My Story," drawing from the shared lexicon of social media. The name was immediately understood by all test participants. A (+) icon for adding content was later replaced with "Add Update" after testing revealed the icon alone was ambiguous.</p>
+          </section>
+
+          <section class="cs-section" id="conclusions">
+            <span class="cs-section__label">Takeaways</span>
+            <h2 class="cs-section__title">Conclusions</h2>
+            <p>Starting from a broad mandate, the team conducted user research to understand how Gen Z saves, spends, and engaged with the Doni app in its existing form. We identified clarity problems — around language and feature function — and a deeper need for a more engaging, expressive experience.</p>
+            <p>To address clarity, we revised wording throughout and added a short, skippable coaching layer. To increase engagement, we introduced video/photo storytelling for goals and events, and an in-app friends layer for social continuity.</p>
+            <p>Every feature was validated through iterative testing, with refinements made at each round. By the final prototype, users were significantly more likely to return to the app — and to recommend it to others. Once they understood the utility, it fit seamlessly into their goals and behavior.</p>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__name">Keith Villanueva</p>
+        <p class="footer__copy">UX Manager &amp; Strategist · <a href="index.html#work" style="color:inherit; text-decoration: underline; text-underline-offset: 3px;">← Back to Work</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
