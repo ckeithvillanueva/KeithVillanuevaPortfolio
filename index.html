@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -26,8 +27,9 @@
     <div class="nav__inner">
       <a href="#hero" class="nav__logo">Keith Villanueva</a>
       <div class="nav__links" id="navLinks">
+        <a href="#hero" class="nav__link nav__link--top">Return to Top</a>
         <a href="#about" class="nav__link">About</a>
-        <a href="#work" class="nav__link">Work</a>
+        <a href="#ai-explorations" class="nav__link">Agentic UX</a>
         <a href="#contact" class="nav__link">Contact</a>
         <a href="https://www.linkedin.com/in/ckeithvillanueva" class="nav__social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -60,7 +62,7 @@
           "When the cost of an answer is plummeting, the question becomes the most valuable asset."
         </blockquote>
         <div class="hero__actions">
-          <a href="#work" class="btn btn--primary">View Work</a>
+          <a href="#ai-explorations" class="btn btn--primary">Designing with AI</a>
           <a href="#contact" class="btn btn--ghost">Connect</a>
         </div>
       </div>
@@ -102,6 +104,182 @@
           <p>The room where competing priorities collide and someone has to translate the language of users into the language of business, engineering, and stakeholders who all have different definitions of "done." That's where I live.</p>
           <p>Currently at the National Fire Protection Association, where I lead UX strategy across a major platform overhaul serving professionals whose work carries real-world stakes. The work requires seeing the forest and the trees simultaneously: advocating for the best user experience at each step so that both the user and the business can accomplish their goals.</p>
           <p>I am fluent in the language of users, business, engineering, and AI. I specialize in the hardest part: getting people with competing goals to build the right thing together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AI EXPLORATIONS ===================== -->
+  <section class="ai-exp" id="ai-explorations">
+    <div class="container">
+      <div class="ai-exp__header fade-up">
+        <div class="section-label ai-exp__label">Agentic UX</div>
+        <h2 class="ai-exp__title">Designing for AI Agents</h2>
+        <p class="ai-exp__intro">Exploring how AI agents can deliver timely, relevant insights — with zero cognitive overhead for the user.</p>
+      </div>
+    </div>
+
+    <div class="ai-exp__scroll-wrap">
+      <div class="ai-exp__track fade-up">
+
+        <!-- ── Slide 1: Design Philosophy ── -->
+        <div class="ai-slide ai-slide--light">
+          <div class="ai-slide__accent-bar"></div>
+
+          <!-- Full-width header: meta + title span all columns -->
+          <div class="ai-slide__light-header">
+            <div class="ai-slide__meta">
+              <span class="ai-slide__num">01</span>
+              <span class="ai-slide__badge">Design Philosophy</span>
+            </div>
+            <h3 class="ai-slide__title">Data is everywhere. How do we make it impactful? <u>Center a human experience.</u></h3>
+          </div>
+
+          <div class="ai-slide__inner">
+
+            <!-- Col 1: Framework -->
+            <div class="ai-slide__col ai-slide__col--left">
+              <div class="ai-slide__framework">
+                <div class="ai-frame__item">
+                  <span class="ai-frame__key">A specific person</span>
+                  <span class="ai-frame__val">A parent</span>
+                </div>
+                <div class="ai-frame__item">
+                  <span class="ai-frame__key">With a specific need</span>
+                  <span class="ai-frame__val">Keep their child safe from the sun, with minimal mental load</span>
+                </div>
+                <div class="ai-frame__item">
+                  <span class="ai-frame__key">At a specific time and place</span>
+                  <span class="ai-frame__val">Before going outside during high UV index periods</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 2: Quote -->
+            <div class="ai-slide__col ai-slide__col--mid">
+              <blockquote class="ai-slide__quote">"I already have so many things on my mental checklist, I can't keep track of this one additional thing that is so small but also so important"</blockquote>
+            </div>
+
+            <!-- Connector text panel, aligned to the phone notification -->
+            <div class="ai-slide__connector-panel">
+              <div class="ai-slide__connector-panel__spacer"></div>
+              <div class="ai-slide__connector-panel__content">
+                <p class="ai-slide__connector-text">Build an agent to cross-reference the user's calendar with the UV Dashboard app and send a customized notification 45 minutes before the event.</p>
+                <p class="ai-slide__connector-text">There is an app UI to explore with more features, but for many users <u>this is it</u>. The agent assesses the situation and gives a tailored recommendation.</p>
+              </div>
+            </div>
+
+            <!-- Col 3: Device panel (full-height dark teal pane) -->
+            <div class="ai-slide__col ai-slide__col--phone">
+              <div class="ai-phone ai-phone--panel">
+                <div class="ai-phone__screen">
+                  <div class="ai-phone__lock">
+                    <p class="ai-phone__date">Tuesday, April 8</p>
+                    <p class="ai-phone__time">1:34</p>
+                  </div>
+                  <div class="ai-phone__notif">
+                    <div class="ai-phone__notif-header">
+                      <div class="ai-phone__notif-icon">☀️</div>
+                      <span class="ai-phone__notif-app">UV Dashboard</span>
+                      <span class="ai-phone__notif-time-label">now</span>
+                    </div>
+                    <p class="ai-phone__notif-title">🏖 Water Day Ahead — Apply Sunscreen</p>
+                    <p class="ai-phone__notif-body">UV will be extreme at Barton Springs Pool at 1pm due to water surface reflection (effective UV: 11.7). Avoid outdoors if possible. SPF 50+ if you must go out.</p>
+                    <div class="ai-phone__notif-actions">
+                      <span class="ai-phone__btn ai-phone__btn--dismiss">Dismiss</span>
+                      <span class="ai-phone__btn ai-phone__btn--open">View Details</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Slide 2: Behind the Scenes ── -->
+        <div class="ai-slide ai-slide--dark">
+          <div class="ai-slide__accent-bar ai-slide__accent-bar--mid"></div>
+          <div class="ai-slide__inner ai-slide__inner--dark">
+
+            <!-- Full-width header -->
+            <div class="ai-slide__dark-header">
+              <div class="ai-slide__meta">
+                <span class="ai-slide__num">02</span>
+                <span class="ai-slide__badge">Behind the Scenes</span>
+              </div>
+              <h3 class="ai-slide__title">All Recommendations Come From Server Logic</h3>
+              <p class="ai-slide__desc">Language in the briefing is a server-computed string, not from an LLM. This means the output is fully auditable and the same inputs always produce the same output. Consider using an LLM to geocode a variety of human-generated calendar events.</p>
+            </div>
+
+            <!-- Two-column body: phone card + JSON screenshot with connecting arrow -->
+            <div class="ai-slide__dark-body">
+              <div class="ai-slide__dark-phone">
+                <div class="ai-phone ai-phone--dark ai-phone--card">
+                  <div class="ai-phone__screen">
+                    <div class="ai-phone__lock">
+                      <p class="ai-phone__date">Tuesday, April 8</p>
+                      <p class="ai-phone__time">1:34</p>
+                    </div>
+                    <div class="ai-phone__notif">
+                      <div class="ai-phone__notif-header">
+                        <div class="ai-phone__notif-icon">☀️</div>
+                        <span class="ai-phone__notif-app">UV Dashboard</span>
+                        <span class="ai-phone__notif-time-label">now</span>
+                      </div>
+                      <p class="ai-phone__notif-title">🏖 Water Day Ahead — Apply Sunscreen</p>
+                      <p class="ai-phone__notif-body">UV will be extreme at Barton Springs Pool at 1pm due to water surface reflection (effective UV: 11.7). Avoid outdoors if possible. SPF 50+ if you must go out.</p>
+                      <div class="ai-phone__notif-actions">
+                        <span class="ai-phone__btn ai-phone__btn--dismiss">Dismiss</span>
+                        <span class="ai-phone__btn ai-phone__btn--open">View Details</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ai-slide__dark-screenshot">
+                <img src="Image%20Assets/In_App_JSON.png" alt="Server-side JSON response showing the computed briefing string">
+              </div>
+              <svg class="ai-slide__arrow" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <marker id="ai-arrow-head" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                    <polygon points="0 0, 10 5, 0 10" fill="#e85a4f"/>
+                  </marker>
+                </defs>
+                <line x1="610" y1="220" x2="340" y2="245" stroke="#e85a4f" stroke-width="2" marker-end="url(#ai-arrow-head)"/>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ai-exp__nav" role="tablist" aria-label="Slide navigation">
+      <button class="ai-exp__dot ai-exp__dot--active" data-slide="0" aria-label="Design Philosophy" role="tab"></button>
+      <button class="ai-exp__dot" data-slide="1" aria-label="Behind the Scenes" role="tab"></button>
+    </div>
+
+    <!-- Key Takeaways -->
+    <div class="container">
+      <div class="ai-takeaways fade-up">
+        <h2 class="ai-takeaways__title">Key Takeaways</h2>
+        <div class="ai-takeaways__list">
+          <div class="ai-takeaway">
+            <div class="ai-takeaway__dot"></div>
+            <div>
+              <p class="ai-takeaway__headline">The best dashboard can be the one that never needs to be opened.</p>
+              <p class="ai-takeaway__sub">Agents deliver insight and suggested action with no mental load on the user.</p>
+            </div>
+          </div>
+          <div class="ai-takeaway">
+            <div class="ai-takeaway__dot"></div>
+            <div>
+              <p class="ai-takeaway__headline">Use code where logic is known and output must be reliable.</p>
+              <p class="ai-takeaway__sub">Server-side reasoning is consistent, auditable, and better suited for health-related recommendations.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

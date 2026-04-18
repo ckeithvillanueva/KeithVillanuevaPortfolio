@@ -88,4 +88,58 @@
 
   sections.forEach(sec => sectionObserver.observe(sec));
 
+
+  // ── Slide navigation dots ─────────────────
+  const slideScroll = document.querySelector('.ai-exp__scroll-wrap');
+  const slideTrack  = document.querySelector('.ai-exp__track');
+  const slideDots   = document.querySelectorAll('.ai-exp__dot');
+
+  if (slideScroll && slideTrack && slideDots.length) {
+    function getSlides() {
+      return Array.from(slideTrack.querySelectorAll('.ai-slide'));
+    }
+
+    function setActiveSlide(i) {
+      const slides = getSlides();
+      slides.forEach((s, j) => s.classList.toggle('ai-slide--active', j === i));
+      slideDots.forEach((d, j) => d.classList.toggle('ai-exp__dot--active', j === i));
+    }
+
+    // Scroll slide i so its left edge aligns with the container's left edge
+    // (same x-position as "Designing for AI Agents" heading above)
+    function scrollToSlide(i) {
+      const slides = getSlides();
+      if (!slides[i]) return;
+      const origin = slides[0].offsetLeft; // = container left offset
+      slideScroll.scrollTo({ left: slides[i].offsetLeft - origin, behavior: 'smooth' });
+      setActiveSlide(i);
+    }
+
+    function updateActiveDot() {
+      const slides = getSlides();
+      const origin = slides[0] ? slides[0].offsetLeft : 0;
+      const visibleLeft = slideScroll.scrollLeft + origin;
+      let active = 0;
+      slides.forEach((slide, i) => {
+        // A slide is "active" once its left edge has reached the section's
+        // left alignment line (i.e., it is fully scrolled into position).
+        if (slide.offsetLeft <= visibleLeft + 8) active = i;
+      });
+      setActiveSlide(active);
+    }
+
+    // Dot clicks
+    slideDots.forEach(dot => {
+      dot.addEventListener('click', () => scrollToSlide(parseInt(dot.dataset.slide, 10)));
+    });
+
+    // Slide clicks
+    getSlides().forEach((slide, i) => {
+      slide.addEventListener('click', () => scrollToSlide(i));
+    });
+
+    slideScroll.addEventListener('scroll', updateActiveDot, { passive: true });
+    updateActiveDot();
+  }
+
 })();

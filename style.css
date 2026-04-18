@@ -210,16 +210,20 @@ em { font-style: italic; }
   left: 0;
   right: 0;
   z-index: 200;
-  padding: 22px 0;
-  transition: background var(--ease-base), box-shadow var(--ease-base), padding var(--ease-base);
+  padding: 15px 0;
+  box-shadow: 0 1px 0 var(--border);
+  transition: box-shadow var(--ease-base), padding var(--ease-base);
 }
-
-.nav--scrolled {
+/* Frosted background lives on a pseudo so .nav itself doesn't create a
+   containing block for `position: fixed` descendants (e.g. the open menu). */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: rgba(250, 250, 248, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 var(--border);
-  padding: 15px 0;
+  z-index: -1;
 }
 
 .nav__inner {
@@ -252,7 +256,7 @@ em { font-style: italic; }
 .nav__link {
   font-size: 28px;
   font-weight: 400;
-  color: rgba(255,255,255,0.8);
+  color: var(--text-secondary);
   letter-spacing: 0.02em;
   position: relative;
   transition: color var(--ease-fast);
@@ -264,11 +268,11 @@ em { font-style: italic; }
   left: 0;
   right: 100%;
   height: 1.5px;
-  background: #ffffff;
+  background: var(--teal);
   transition: right var(--ease-base);
 }
 .nav__link:hover,
-.nav__link--active { color: #ffffff; }
+.nav__link--active { color: var(--text-primary); }
 .nav__link:hover::after,
 .nav__link--active::after { right: 0; }
 
@@ -276,7 +280,7 @@ em { font-style: italic; }
   display: inline-flex;
   width: 40px;
   height: 40px;
-  color: #ffffff;
+  color: var(--text-secondary);
   transition: color var(--ease-fast), transform var(--ease-fast);
 }
 .nav__social-link svg {
@@ -289,21 +293,12 @@ em { font-style: italic; }
   stroke: none;
 }
 .nav__social-link path {
-  fill: var(--text-primary);
+  fill: var(--bg);
 }
 .nav__social-link:hover {
-  color: rgba(255,255,255,0.7);
+  color: var(--text-primary);
   transform: translateY(-1px);
 }
-
-/* Restore dark colors once background fades in */
-.nav--scrolled .nav__link { color: var(--text-secondary); }
-.nav--scrolled .nav__link::after { background: var(--teal); }
-.nav--scrolled .nav__link:hover,
-.nav--scrolled .nav__link--active { color: var(--text-primary); }
-.nav--scrolled .nav__social-link { color: var(--text-secondary); }
-.nav--scrolled .nav__social-link path { fill: var(--bg); }
-.nav--scrolled .nav__social-link:hover { color: var(--text-primary); }
 
 /* Hamburger */
 .nav__toggle {
@@ -335,19 +330,42 @@ em { font-style: italic; }
   flex-direction: column;
   position: fixed;
   inset: 0;
-  background: var(--bg);
+  /* Start below the fixed nav bar so the first item is fully visible */
+  padding: 88px 24px 24px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   align-items: center;
-  justify-content: center;
-  gap: 48px;
+  justify-content: flex-start;
+  gap: clamp(16px, 3vh, 28px);
   z-index: 200;
+  /* Reset the desktop translateX(100px) from the base .nav__links */
+  transform: none;
+  overflow-y: auto;
 }
 .nav--open .nav__link {
   font-family: var(--font-display);
-  font-size: clamp(28px, 8vw, 42px);
+  font-size: clamp(22px, 5.5vh, 36px);
   font-weight: 400;
   color: var(--text-primary);
+  line-height: 1.1;
 }
 .nav--open .nav__link::after { display: none; }
+/* Keep social icons hidden in the expanded menu */
+.nav--open .nav__social-link { display: none; }
+
+/* "Return to Top" appears only inside the open hamburger menu */
+.nav__link--top { display: none; }
+.nav--open .nav__link--top { display: block; }
+
+/* Switch to hamburger before the desktop links wrap (e.g. "Agentic UX"
+   breaking onto two lines around 1014px). Toggle stays right-aligned
+   with the main content via .nav__inner's container padding. */
+@media (max-width: 1014px) {
+  .nav__links { display: none; }
+  .nav__social-link { display: none; }
+  .nav__toggle { display: flex; }
+}
 
 
 /* ============================================
@@ -677,6 +695,1186 @@ em { font-style: italic; }
 .toolbox__media--duo img:last-child {
   width: 120px;
 }
+
+/* ============================================
+   8b. AI Explorations
+   ============================================ */
+.ai-exp {
+  background: var(--text-primary);
+  padding-top: var(--section-pad);
+  padding-bottom: 56px;
+  overflow: hidden;
+}
+
+.ai-exp__header {
+  margin-bottom: 52px;
+}
+
+.ai-exp__label {
+  color: var(--teal-mid) !important;
+}
+
+.ai-exp__title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.ai-exp__intro {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 520px;
+  font-weight: 300;
+}
+
+/* Scroll container */
+.ai-exp__scroll-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+  padding-bottom: 8px;
+  /* Fade right edge to hint at more content */
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+.ai-exp__scroll-wrap::-webkit-scrollbar {
+  height: 3px;
+}
+.ai-exp__scroll-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ai-exp__scroll-wrap::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+}
+
+.ai-exp__track {
+  display: flex;
+  gap: 18px;
+  /* Align left edge to container boundary */
+  padding-left: max(var(--container-pad), calc((100vw - var(--container-width)) / 2 + var(--container-pad)));
+  /* Extra right padding so last card clears the fade */
+  padding-right: max(calc(var(--container-pad) + 80px), calc((100vw - var(--container-width)) / 2 + var(--container-pad) + 80px));
+  width: max-content;
+  padding-top: 4px;
+  padding-bottom: 0;
+}
+
+/* Slide navigation dots — centered horizontally on the active slide.
+   The active slide always sits with its left edge at the section's
+   container padding, so a 1000px-wide row anchored there will center
+   the dots over the slide via justify-content: center. */
+.ai-exp__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 1000px;
+  max-width: calc(100% - 2 * var(--container-pad));
+  margin-top: 7px;
+  margin-left: max(var(--container-pad), calc((100vw - var(--container-width)) / 2 + var(--container-pad)));
+}
+
+.ai-exp__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s, opacity 0.25s;
+}
+
+.ai-exp__dot--active {
+  background: var(--teal-dark);
+  transform: scale(1.35);
+}
+
+/* Slides */
+.ai-slide {
+  width: 1000px;
+  height: 620px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-slide--light { background: var(--surface); cursor: pointer; }
+.ai-slide--dark  { background: #1c1c2e; cursor: pointer; }
+
+/* Accent bar is hidden by default and only revealed when its slide is "active"
+   (clicked, or scrolled fully into view at the section's left edge). Both
+   slides share the same shade. */
+.ai-slide__accent-bar {
+  height: 3px;
+  background: transparent;
+  flex-shrink: 0;
+  transition: background-color 200ms ease;
+}
+.ai-slide__accent-bar--mid { background: transparent; }
+
+.ai-slide.ai-slide--active .ai-slide__accent-bar,
+.ai-slide.ai-slide--active .ai-slide__accent-bar--mid {
+  background: var(--teal-mid);
+}
+
+.ai-slide__inner {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 28px 32px 40px;
+  overflow: hidden;
+}
+
+/* Full-width header above the 3-column grid on slide 1 */
+.ai-slide__light-header {
+  flex-shrink: 0;
+  padding: 20px 32px 16px;
+}
+
+.ai-slide__light-header .ai-slide__meta {
+  margin-bottom: 8px;
+}
+
+.ai-slide__light-header .ai-slide__title {
+  margin-bottom: 0;
+  white-space: normal;
+  max-width: 760px;
+}
+
+.ai-slide--light .ai-slide__inner {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  padding: 0 0 0 32px;
+  align-items: stretch;
+  min-height: 0;
+  position: relative;
+}
+
+.ai-slide--light .ai-slide__col--left  { flex: 0 0 240px; width: 240px; }
+.ai-slide--light .ai-slide__col--mid   { flex: 1 1 auto; min-width: 0; padding-right: 32px; }
+
+/* Phone is pulled out of the flex flow and anchored to the bottom-right,
+   freeing the upper-right area so the italic quote can expand wider. */
+.ai-slide--light .ai-slide__col--phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  height: 420px;
+  padding: 0 24px 0 24px;
+  flex: none;
+}
+
+/* Connector panel: sits to the left of the phone at the same bottom anchor.
+   The spacer's height mirrors the phone's screen top padding + lock-screen area,
+   so the content section lines up vertically with the phone's notification card.
+   The text block's border-right is the vertical divider line. */
+.ai-slide--light .ai-slide__connector-panel {
+  position: absolute;
+  right: 420px;
+  bottom: 0;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+/* Spacer mirrors the phone's top padding + lock screen height so the content
+   section below lines up vertically with the notification card in the phone. */
+.ai-slide--light .ai-slide__connector-panel__spacer {
+  flex-shrink: 0;
+  padding-top: 48px;
+  padding-bottom: 36px;
+  visibility: hidden;
+}
+
+.ai-slide--light .ai-slide__connector-panel__spacer::before {
+  content: 'Tuesday, April 8';
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.ai-slide--light .ai-slide__connector-panel__spacer::after {
+  content: '1:34';
+  display: block;
+  font-size: 55px;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+
+.ai-slide--light .ai-slide__connector-panel__content {
+  padding: 20px 22px 10px 0;
+  border-right: 3.5px solid var(--teal);
+  max-width: 560px;
+  margin-top: -20px;
+  margin-right: 10px;
+  margin-bottom: auto;
+  pointer-events: auto;
+}
+
+.ai-slide--light .ai-slide__connector-panel__content .ai-slide__connector-text {
+  margin-top: 0;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.ai-slide--light .ai-slide__connector-panel__content .ai-slide__connector-text + .ai-slide__connector-text {
+  margin-top: 14px;
+}
+
+.ai-slide__inner--flip {
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* 3-column layout for light slide */
+.ai-slide__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-slide__col--left {
+  padding: 0 28px 28px 0;
+}
+
+.ai-slide__col--mid {
+  border-left: none;
+  padding: 0 24px 28px 26px;
+}
+
+.ai-slide__col--phone {
+  overflow: hidden;
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+  padding: 28px 24px 0 24px;
+}
+
+.ai-slide__col--phone .ai-phone {
+  width: 100%;
+  flex: 1 1 auto;
+  border-radius: 16px 16px 0 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slide 1 panel variant: full-height dark teal pane, iPhone lock screen proportions */
+.ai-phone--panel .ai-phone__screen {
+  flex: 1;
+  padding: 48px 22px 0;
+  display: flex;
+  flex-direction: column;
+}
+.ai-phone--panel .ai-phone__lock {
+  padding-bottom: 36px;
+}
+.ai-phone--panel .ai-phone__date {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.ai-phone--panel .ai-phone__time {
+  font-size: 55px;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+.ai-phone--panel .ai-phone__notif {
+  margin-top: 0;
+  margin-bottom: auto;
+  padding: 14px;
+  border-radius: 18px;
+}
+.ai-phone--panel .ai-phone__notif-header { gap: 9px; margin-bottom: 4px; }
+.ai-phone--panel .ai-phone__notif-icon { width: 34px; height: 34px; font-size: 18px; border-radius: 8px; }
+.ai-phone--panel .ai-phone__notif-app { font-size: 13px; }
+.ai-phone--panel .ai-phone__notif-time-label { font-size: 13px; }
+.ai-phone--panel .ai-phone__notif-title { font-size: 15px; margin-bottom: 3px; }
+.ai-phone--panel .ai-phone__notif-body { font-size: 14px; line-height: 1.35; margin-bottom: 12px; }
+.ai-phone--panel .ai-phone__notif-actions { gap: 8px; }
+.ai-phone--panel .ai-phone__btn { padding: 11px; font-size: 13px; border-radius: 11px; }
+
+.ai-slide__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-slide__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ai-slide__num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.ai-slide--dark .ai-slide__num { color: rgba(255,255,255,0.25); }
+
+.ai-slide__badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.ai-slide--dark .ai-slide__badge { color: var(--teal-mid); }
+
+.ai-slide__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.ai-slide--dark .ai-slide__title { color: #ffffff; font-size: 26px; }
+
+.ai-slide__framework {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Vertical divider between the framework list and the quote.
+   Anchored to the framework so its height matches the framework content
+   (top of first item to bottom of last item). Color matches the accent bar. */
+.ai-slide__framework::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -29.75px;
+  width: 3.5px;
+  background: var(--teal);
+}
+
+.ai-frame__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 3px;
+  padding-right: 0;
+}
+
+.ai-frame__key {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--teal-dark);
+}
+.ai-frame__val {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.ai-slide__connector-text {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.6;
+  text-align: right;
+  margin-top: 14px;
+}
+
+.ai-slide__desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.ai-slide__visual {
+  display: flex;
+  flex-direction: column;
+}
+.ai-slide__visual--phone {
+  padding-top: 8px;
+}
+
+.ai-slide__quote {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.ai-slide__screenshot {
+  border-radius: 4px;
+  overflow: hidden;
+  flex: 1;
+  min-height: 180px;
+}
+.ai-slide__screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* ── Phone mockup ── */
+.ai-phone {
+  width: 210px;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+.ai-phone--dark { box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+
+.ai-phone__screen { background: #0b3142; padding: 22px 12px 0; }
+
+.ai-phone__lock { text-align: center; padding-bottom: 14px; }
+
+.ai-phone__time {
+  font-family: var(--font-body);
+  font-size: 38px;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.ai-phone__date {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+}
+
+.ai-phone__notif {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 12px;
+  margin: 0 2px;
+}
+.ai-phone__notif-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.ai-phone__notif-icon {
+  width: 26px; height: 26px;
+  background: #e1bc29;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.ai-phone__notif-app {
+  font-size: 12px; font-weight: 600; color: #ffffff; flex: 1;
+  letter-spacing: -0.005em;
+}
+.ai-phone__notif-time-label { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.55); }
+.ai-phone__notif-title {
+  font-size: 14px; font-weight: 600; color: #ffffff;
+  margin-bottom: 2px; line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.ai-phone__notif-body {
+  font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.88);
+  line-height: 1.35; margin-bottom: 12px;
+  letter-spacing: -0.005em;
+}
+.ai-phone__notif-actions { display: flex; gap: 8px; }
+.ai-phone__btn {
+  flex: 1; padding: 9px; border-radius: 10px;
+  font-size: 13px; font-weight: 600; text-align: center; cursor: default; display: block;
+  letter-spacing: -0.005em;
+}
+.ai-phone__btn--dismiss { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+.ai-phone__btn--open { background: #e1bc29; color: #0b3142; }
+.ai-phone__home { height: 14px; background: #4c5760; }
+
+/* ── Slide 2: dark full-bleed layout ── */
+.ai-slide__inner--dark {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 0;
+  overflow: hidden;
+  gap: 20px;
+}
+
+.ai-slide__dark-header {
+  flex-shrink: 0;
+}
+
+.ai-slide__dark-body {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  flex: 1;
+  overflow: hidden;
+  align-items: flex-end;
+  position: relative;
+  min-height: 0;
+}
+
+.ai-slide__dark-phone {
+  flex: 0 0 340px;
+  width: 340px;
+  overflow: visible;
+  display: flex;
+  align-items: flex-end;
+  align-self: flex-end;
+  padding-bottom: 0;
+}
+
+.ai-slide__dark-phone .ai-phone {
+  width: 100%;
+  border-radius: 18px 18px 0 0;
+}
+
+/* Slide 2 card variant: self-contained rounded card, iPhone lock screen proportions.
+   Extra bottom padding bleeds the dark-teal screen to the slide bottom, giving the
+   impression of an iPhone sliding in from below the slide edge. */
+.ai-phone--card .ai-phone__screen {
+  padding: 36px 18px 70px;
+}
+.ai-phone--card .ai-phone__lock {
+  padding-bottom: 22px;
+}
+.ai-phone--card .ai-phone__date {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.ai-phone--card .ai-phone__time {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+.ai-phone--card .ai-phone__notif {
+  padding: 12px;
+  border-radius: 15px;
+}
+.ai-phone--card .ai-phone__notif-header { gap: 8px; margin-bottom: 3px; }
+.ai-phone--card .ai-phone__notif-icon { width: 28px; height: 28px; font-size: 15px; border-radius: 7px; }
+.ai-phone--card .ai-phone__notif-app { font-size: 12px; }
+.ai-phone--card .ai-phone__notif-time-label { font-size: 12px; }
+.ai-phone--card .ai-phone__notif-title { font-size: 13px; margin-bottom: 2px; }
+.ai-phone--card .ai-phone__notif-body { font-size: 12.5px; line-height: 1.35; margin-bottom: 11px; }
+.ai-phone--card .ai-phone__notif-actions { gap: 7px; }
+.ai-phone--card .ai-phone__btn { padding: 9px; font-size: 12px; border-radius: 10px; }
+
+.ai-slide__dark-screenshot {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  align-self: flex-end;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom: none;
+}
+
+.ai-slide__dark-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Red arrow overlay connecting JSON briefing to notification body */
+.ai-slide__arrow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  overflow: visible;
+}
+
+/* ── Key Takeaways ── */
+.ai-takeaways {
+  padding: 72px 0 80px;
+}
+.ai-takeaways__title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 48px;
+}
+.ai-takeaways__list {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+.ai-takeaway {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.ai-takeaway__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.65);
+  flex-shrink: 0;
+  margin-top: 14px;
+}
+.ai-takeaway__headline {
+  font-size: clamp(17px, 2vw, 26px);
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.ai-takeaway__sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+/* (old ai-card styles removed — replaced by ai-slide) */
+.ai-card--dark {
+  background: #1c1c2e;
+  color: #ffffff;
+}
+.ai-card--dark::before {
+  background: var(--teal-mid);
+}
+.ai-card--dark .ai-card__num { color: rgba(255,255,255,0.25); }
+.ai-card--dark .ai-card__badge { color: var(--teal-mid); }
+.ai-card--dark .ai-card__title { color: #ffffff; }
+
+/* Accent variant */
+.ai-card--accent {
+  background: var(--teal-light);
+}
+.ai-card--accent::before {
+  background: var(--teal-dark);
+}
+
+/* Card internals */
+.ai-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.ai-card__num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.ai-card__badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+
+.ai-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.ai-card__body {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-weight: 300;
+  flex: 1;
+}
+.ai-card--dark .ai-card__body { color: rgba(255,255,255,0.6); }
+
+/* Quote (card 3) */
+.ai-card__quote-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-card__quote {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-left: 2px solid var(--teal-mid);
+  padding-left: 16px;
+}
+
+.ai-card__quote-attr {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding-left: 18px;
+}
+
+/* Framework list (card 2) */
+.ai-card__framework-head {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 2px;
+}
+
+.ai-card__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.ai-card__list li {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.7);
+  font-weight: 300;
+  padding-left: 14px;
+  position: relative;
+}
+.ai-card__list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--teal-mid);
+}
+.ai-card__list li strong {
+  font-weight: 500;
+  color: rgba(255,255,255,0.95);
+}
+
+.ai-card__framework-cta {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--teal-mid);
+  font-weight: 300;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 14px;
+}
+
+/* Notification mockup (card 4) */
+.ai-card__notif {
+  background: #1c1c2e;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: auto;
+}
+
+.ai-card__notif-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+
+.ai-card__notif-time {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 300;
+}
+
+.ai-card__notif-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.ai-card__notif-body {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+}
+
+/* Code pills (card 5) */
+.ai-card__pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.ai-card__pill {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 3px;
+  overflow: hidden;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  align-self: flex-start;
+}
+
+.ai-card__pill-k {
+  background: var(--surface-alt);
+  color: var(--text-secondary);
+  padding: 4px 9px;
+  font-weight: 500;
+}
+
+.ai-card__pill-v {
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  padding: 4px 9px;
+  font-weight: 400;
+}
+
+/* Takeaways (card 6) */
+.ai-card__takeaways {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  counter-reset: takeaway;
+  padding: 0;
+}
+
+.ai-card__takeaways li {
+  padding-left: 30px;
+  position: relative;
+  counter-increment: takeaway;
+}
+
+.ai-card__takeaways li::before {
+  content: counter(takeaway);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-card__takeaways li strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: 5px;
+}
+
+.ai-card__takeaways li span {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.ai-card__principle {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: auto;
+}
+
+/* Wide card variant (card 5) */
+.ai-card--wide {
+  width: 620px;
+}
+
+/* Two-panel screen container */
+.ai-card__screens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+  flex: 1;
+}
+
+/* Shared screen shell */
+.ai-screen {
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+}
+
+/* ── App UI mockup ── */
+.ai-screen--app {
+  background: #f2f4f6;
+  border: 1px solid #dde1e6;
+}
+
+.ai-screen__titlebar {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-bottom: 1px solid #e0e4ea;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.ai-screen__back { color: var(--teal-dark); }
+.ai-screen__page { color: var(--text-primary); font-weight: 600; }
+
+.ai-screen__event {
+  padding: 8px 10px;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.ai-screen__event-time {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.ai-screen__event-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 1px;
+}
+
+.ai-screen__event-loc {
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.ai-screen__uv-gauge {
+  background: #0B3142;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-screen__uv-arc {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ai-screen__uv-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: #E1BC29;
+  line-height: 1;
+}
+
+.ai-screen__uv-label {
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.06em;
+}
+
+.ai-screen__uv-times {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 7.5px;
+  color: rgba(255,255,255,0.5);
+  text-align: right;
+}
+
+.ai-screen__briefing {
+  background: #E8F4FD;
+  border-left: 2px solid var(--teal);
+  padding: 7px 9px;
+  margin: 6px;
+  border-radius: 2px;
+}
+
+.ai-screen__briefing-label {
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 3px;
+}
+
+.ai-screen__briefing-text {
+  font-size: 8.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.ai-screen__checklist {
+  padding: 0 8px 8px;
+  flex: 1;
+}
+
+.ai-screen__checklist-label {
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 5px 0 4px;
+  border-bottom: 1px solid #dde1e6;
+  margin-bottom: 5px;
+}
+
+.ai-screen__check {
+  font-size: 8.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+
+.ai-screen__check::before {
+  content: '○';
+  position: absolute;
+  left: 0;
+  color: #ccc;
+  font-size: 8px;
+}
+
+.ai-screen__check--done {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--teal);
+}
+
+.ai-screen__check--done::before {
+  content: '✓';
+  color: var(--teal);
+  font-size: 8px;
+}
+
+/* ── Image screenshot ── */
+.ai-screen--img {
+  background: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  overflow: hidden;
+}
+
+.ai-screen--img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+}
+
+/* ── DevTools mockup ── */
+.ai-screen--devtools {
+  background: #1e1e1e;
+  border: 1px solid #3a3a3a;
+}
+
+.ai-screen__devtools-tabs {
+  display: flex;
+  gap: 0;
+  background: #2d2d2d;
+  border-bottom: 1px solid #444;
+  padding: 0 6px;
+  flex-shrink: 0;
+}
+
+.ai-screen__devtools-tabs span {
+  font-size: 8px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  padding: 5px 7px;
+  cursor: default;
+  letter-spacing: 0.01em;
+}
+
+.ai-screen__devtools-tab--active {
+  color: #ffffff !important;
+  border-bottom: 1.5px solid var(--teal) !important;
+}
+
+.ai-screen__json {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.ai-json-line {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  line-height: 1.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-json-k { color: #9cdcfe; }   /* blue — keys */
+.ai-json-p { color: rgba(255,255,255,0.4); }  /* punctuation */
+.ai-json-s { color: #ce9178; }   /* orange — strings */
+.ai-json-n { color: #b5cea8; }   /* green — numbers */
+.ai-json-b { color: #569cd6; }   /* blue — booleans */
+
 
 /* ============================================
    9. Work / Case Studies
@@ -1141,6 +2339,15 @@ em { font-style: italic; }
     height: 55vw;
     min-height: 280px;
     order: -1;
+    /* Reserve room for the fixed nav so the head isn't cropped.
+       Panel bg matches the headshot bg, so the inset blends in. */
+    padding-top: 72px;
+    height: calc(55vw + 72px);
+    min-height: 352px;
+    box-sizing: border-box;
+  }
+  .hero__photo {
+    object-position: center 20%;
   }
   .hero__content {
     padding: 60px var(--container-pad) 80px;
@@ -1203,6 +2410,118 @@ em { font-style: italic; }
 
 /* — Mobile — */
 @media (max-width: 640px) {
+  .ai-slide {
+    width: 88vw;
+    height: auto;
+  }
+
+  .ai-slide__inner,
+  .ai-slide--light .ai-slide__inner,
+  .ai-slide__inner--flip {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 20px 20px 28px;
+  }
+
+  .ai-slide--light .ai-slide__col--left,
+  .ai-slide--light .ai-slide__col--mid,
+  .ai-slide--light .ai-slide__col--phone {
+    position: static;
+    width: auto;
+    height: auto;
+    flex: 0 0 auto;
+    padding-right: 0;
+  }
+
+  .ai-slide--light .ai-slide__col--mid .ai-slide__connector-text {
+    padding-right: 0;
+  }
+
+  .ai-slide--light .ai-slide__connector-panel {
+    position: static;
+    height: auto;
+    width: 100%;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+
+  .ai-slide--light .ai-slide__connector-panel__spacer {
+    display: none;
+  }
+
+  .ai-slide--light .ai-slide__connector-panel__content {
+    max-width: 100%;
+    border-right: none;
+    padding: 0;
+  }
+
+  .ai-slide__framework::after { display: none; }
+
+  .ai-slide__col--mid,
+  .ai-slide__col--phone {
+    border-left: none;
+    border-top: 2px solid var(--teal-dark);
+    padding: 20px 0 0;
+    margin-top: 20px;
+  }
+
+  .ai-slide__col--phone .ai-phone {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .ai-phone--panel .ai-phone__time { font-size: 44px; }
+  .ai-phone--panel .ai-phone__date { font-size: 13px; }
+  .ai-phone--panel .ai-phone__screen { padding: 24px 16px 0; }
+  .ai-phone--panel .ai-phone__lock { padding-bottom: 18px; }
+  .ai-phone--panel .ai-phone__notif { margin-bottom: 16px; padding: 12px; border-radius: 15px; }
+
+  .ai-slide__arrow { display: none; }
+
+  /* Content first, phone second on mobile */
+  .ai-slide--dark  .ai-slide__content  { order: 1; }
+  .ai-slide--dark  .ai-slide__visual   { order: 2; }
+
+  .ai-phone { width: 100%; max-width: 240px; }
+  .ai-slide__title { font-size: 20px; }
+  .ai-slide__connector-text { font-size: 15px; }
+  .ai-slide__quote { font-size: 16px; }
+  .ai-slide__screenshot { min-height: 150px; }
+
+  /* Slide 2 mobile */
+  .ai-slide__inner--dark {
+    padding: 20px 20px 0;
+    gap: 14px;
+  }
+  .ai-slide__dark-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .ai-slide__dark-phone .ai-phone {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+  .ai-slide__dark-screenshot {
+    border-radius: 6px 6px 0 0;
+  }
+
+  /* Dots: center on the (88vw) active slide */
+  .ai-exp__nav {
+    width: 88vw;
+    margin-left: var(--container-pad);
+  }
+
+  .ai-takeaways { padding: 52px 0 60px; }
+  .ai-takeaway__headline { font-size: 16px; }
+
+  .ai-exp__scroll-wrap {
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+  }
   :root {
     --section-pad: 72px;
   }
